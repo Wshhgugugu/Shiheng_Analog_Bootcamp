@@ -119,7 +119,7 @@ in
       ccache
 
       # Digital design
-      verilog
+      iverilog
       slang
       verilator
       yosys
@@ -144,7 +144,7 @@ in
       # Analog Design
       xschem
       ngspice
-      xyce
+#       xyce
       netgen-old
       klayout
       magic-vlsi-old

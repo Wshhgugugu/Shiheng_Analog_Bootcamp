@@ -1,0 +1,12 @@
+# 1. 设置 PDK 路径
+set PDK_ROOT $env(HOME)/.volare/sky130A
+source $PDK_ROOT/libs.tech/xschem/xschemrc
+
+# 2. 确保网表生成在当前目录
+set netlist_dir [pwd]
+
+# 3. 添加 Bootcamp 的符号库路径
+append XSCHEM_LIBRARY_PATH :$env(HOME)/Shiheng_Analog_Bootcamp/xschem_sky130
+
+# 4. 【关键】生成网表后，自动运行修复脚本
+set netlist_postprocess {exec python3 fix_spice.py $netlist_dir/[xschem get netlist_name fallback]}

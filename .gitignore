@@ -1,12 +1,20 @@
-# IDE files
-.vscode/
-.idea/
+# 忽略仿真生成的波形数据 (非常大！)
+*.raw
+*.out
+*.log
 
-# OS files
-.DS_Store
-Thumbs.db
+# 忽略临时文件
+*.swp
+*~
+*.tmp
 
-# Tools
-.venv/
-.tools/
-.tmp/
+# 忽略 XSchem 的一些临时报错记录
+xschem.log
+
+# 这是一个好的习惯：通常我们不上传生成的 .spice 网表，只上传 .sch 原理图
+# 但因为你写了修复脚本并且手动修了网表，我们可以破例暂时不忽略 spice
+# *.spice 
+
+# 忽略 Python 缓存
+__pycache__/
+*.pyc
