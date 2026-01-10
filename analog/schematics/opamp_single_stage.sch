@@ -59,6 +59,12 @@ N -110 -40 -40 -40 {
 lab=VIN_P}
 N 0 -40 120 -40 {
 lab=GND}
+N 340 160 340 220 {
+lab=GND}
+N 220 160 340 160 {
+lab=GND}
+N -50 160 10 160 {
+lab=GND}
 C {ipin.sym} -110 -40 0 0 {name=VIN_P lab=VIN_P}
 C {ipin.sym} 560 -40 2 0 {name=VIN_N lab=VIN_N }
 C {ipin.sym} 210 -340 1 0 {name=VDD lab=VDD}
@@ -95,21 +101,6 @@ model=pfet_01v8
 spiceprefix=X
 }
 C {vsource.sym} 40 160 1 0 {name=VB2 value=0.7 savecurrent=false}
-C {sky130_fd_pr/nfet3_01v8.sym} 200 160 0 0 {name=M9
-W=1
-L=0.15
-body=GND
-nf=1
-mult=1
-ad="'int((nf+1)/2) * W/nf * 0.29'" 
-pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
-as="'int((nf+2)/2) * W/nf * 0.29'" 
-ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
-nrd="'0.29 / W'" nrs="'0.29 / W'"
-sa=0 sb=0 sd=0
-model=nfet_01v8
-spiceprefix=X
-}
 C {sky130_fd_pr/nfet_01v8.sym} -20 -40 0 0 {name=M1
 W=5
 L=0.5
@@ -138,3 +129,19 @@ sa=0 sb=0 sd=0
 model=nfet_01v8
 spiceprefix=X
 }
+C {sky130_fd_pr/nfet_01v8.sym} 200 160 0 0 {name=M9
+W=5
+L=0.5
+nf=1 
+mult=1
+ad="'int((nf+1)/2) * W/nf * 0.29'" 
+pd="'2*int((nf+1)/2) * (W/nf + 0.29)'"
+as="'int((nf+2)/2) * W/nf * 0.29'" 
+ps="'2*int((nf+2)/2) * (W/nf + 0.29)'"
+nrd="'0.29 / W'" nrs="'0.29 / W'"
+sa=0 sb=0 sd=0
+model=nfet_01v8
+spiceprefix=X
+}
+C {gnd.sym} 340 220 0 0 {name=l3 lab=GND}
+C {gnd.sym} -50 160 0 0 {name=l4 lab=GND}
