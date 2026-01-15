@@ -1,0 +1,38 @@
+* Input Impedance Measurement
+
+.lib /home/wshh/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.option scale=1e-6
+
+* Power supplies
+VDD vdd GND 1.8
+VSS vss GND 0
+
+* Bias
+VCM vin_n GND 0.9
+
+* Test current at VIN_P
+Itest vin_p GND AC 1
+
+* Op-amp
+x1 vout vdd vin_n vin_p vss opamp_single_stage
+
+.subckt opamp_single_stage VOUT VDD VIN_N VIN_P VSS
+XM3 VDD net1 net1 VDD sky130_fd_pr__pfet_01v8 L=0.5 W=5 nf=1 m=1
+XM4 VOUT net1 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=5 nf=1 m=1
+VB2 net3 GND 0.7
+XM9 net2 net3 VSS GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+XM1 net1 VIN_P net2 GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+XM2 VOUT VIN_N net2 GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+.ends
+
+.GLOBAL GND
+
+.control
+op
+ac dec 10 1 1G
+let zin = v(vin_p)/1
+plot mag(zin) xlog title 'Input Impedance'
+print mag(zin)[0]
+.endc
+
+.end

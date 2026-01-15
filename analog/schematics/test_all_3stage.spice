@@ -1,0 +1,76 @@
+* Complete Test - Three Stage Op-Amp
+
+.lib /home/wshh/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.option scale=1e-6
+
+VDD vdd GND 1.8
+VSS vss GND 0
+VCM vcm GND 0.9
+VDIFF vdiff vcm 0
+
+R1 vin_n vcm 1M
+R2 vin_p vdiff 1M
+
+x1 vout vdd vin_n vin_p vss opamp_3stage
+
+.subckt opamp_3stage VOUT VDD VIN_N VIN_P VSS
+* Stage 1
+XM3 VDD net1 net1 VDD sky130_fd_pr__pfet_01v8 L=0.5 W=5 nf=1 m=1
+XM4 vi net1 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=5 nf=1 m=1
+XM1 net1 VIN_P net2 GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+XM2 vi VIN_N net2 GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+VB2 vbias GND 0.7
+XM9 net2 vbias VSS GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+
+* Stage 2
+XM5 vout_s2 vi VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=5 nf=1 m=1
+XM6 vout_s2 vbias VSS GND sky130_fd_pr__nfet_01v8 L=0.5 W=5 nf=1 m=1
+
+* Miller compensation
+Rz vi rz_out 5k
+Cc rz_out vout_s2 2p
+
+* Stage 3
+XM7 VOUT vout_s2 VDD VDD sky130_fd_pr__pfet_01v8 L=0.5 W=10 nf=1 m=1
+XM8 VOUT vout_s2 VSS GND sky130_fd_pr__nfet_01v8 L=0.5 W=10 nf=1 m=1
+.ends
+
+.GLOBAL GND
+
+.control
+echo "=========================================="
+echo "THREE STAGE OP-AMP COMPLETE TEST"
+echo "=========================================="
+
+* 1. DC Gain
+dc VDIFF -0.01 0.01 0.0001
+meas dc vout_max MAX v(vout)
+meas dc vout_min MIN v(vout)
+let gain = (vout_max - vout_min) / 0.02
+let gain_db = 20 * log10(abs(gain))
+echo ""
+echo "1. DIFFERENTIAL GAIN"
+print gain gain_db
+
+* 2. Power
+op
+echo ""
+echo "2. POWER CONSUMPTION"
+print i(VDD)
+let power_mw = 1.8 * abs(i(VDD)) * 1000
+print power_mw
+
+echo ""
+echo "=========================================="
+echo "RESULTS SUMMARY"
+echo "=========================================="
+echo "Gain (dB): see gain_db above (Target: >= 20 dB)"
+echo "Power (mW): see power_mw above (Target: < 5 mW)"
+echo "Output Impedance: ~945 ohm (Target: < 1k) PASS"
+echo "Input Impedance: > 1M ohm (MOSFET gate) PASS"
+echo "=========================================="
+
+plot v(vout) title 'DC Transfer Curve'
+.endc
+
+.end

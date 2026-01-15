@@ -1,0 +1,9 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1768187031
+use sky130_fd_pr__nfet_01v8_KUJMM2  M1
+timestamp 1768187031
+transform 1 0 195 0 1 657
+box -246 -710 246 710
+<< end >>
