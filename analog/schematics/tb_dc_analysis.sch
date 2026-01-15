@@ -58,13 +58,19 @@ device=resistor
 m=1}
 C {opin.sym} 320 -30 0 0 {name=VOUT lab=VOUT}
 C {opamp_single_stage.sym} 150 0 0 0 {name=x1}
-C {code_shown.sym} 20 100 0 0 {name=s1 only_toplevel=false value=".lib /home/wshh/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+C {code_shown.sym} 20 100 0 0 {name=s1 only_toplevel=false value="
+.lib /home/wshh/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/ngspice/sky130.lib.spice tt
 .option scale=1e-6
 .control
 save all
+
+* DC Gain Test
 dc VDIFF -0.01 0.01 0.0001
-plot v(vout)
-plot deriv(v(vout))
+plot v(vout) title 'DC Transfer Curve'
+plot deriv(v(vout)) title 'Gain'
+
+* Power Test
 op
 print i(VDD)
-.endc"}
+.endc
+"}

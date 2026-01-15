@@ -22,17 +22,17 @@ lab=#net1}
 N 210 -230 210 -140 {
 lab=#net1}
 N 830 -40 1000 -40 {
-lab=VOUT_S2}
+lab=#net3}
 N 0 -10 0 70 {
-lab=#net3}
+lab=#net4}
 N 0 70 420 70 {
-lab=#net3}
+lab=#net4}
 N 420 -10 420 70 {
-lab=#net3}
+lab=#net4}
 N 220 190 220 250 {
 lab=VSS}
 N 220 70 220 130 {
-lab=#net3}
+lab=#net4}
 N -70 -230 -0 -230 {
 lab=VDD}
 N -70 -260 -70 -230 {
@@ -62,15 +62,15 @@ lab=VDD}
 N 830 -340 830 -260 {
 lab=VDD}
 N 830 -200 830 130 {
-lab=VOUT_S2}
+lab=#net3}
 N 690 -230 790 -230 {
 lab=#net2}
 N 690 -230 690 -140 {
 lab=#net2}
 N 690 -80 720 -80 {
-lab=#net4}
+lab=#net5}
 N 780 -80 830 -80 {
-lab=VOUT_S2}
+lab=#net3}
 N 420 -180 690 -180 {
 lab=#net2}
 N 220 250 830 250 {
@@ -78,9 +78,9 @@ lab=VSS}
 N 830 190 830 250 {
 lab=VSS}
 N 260 160 370 160 {
-lab=#net5}
-N 430 160 790 160 {
 lab=#net6}
+N 430 160 790 160 {
+lab=#net7}
 N -20 160 220 160 {
 lab=GND}
 N 830 -230 1060 -230 {
@@ -90,9 +90,9 @@ lab=VDD}
 N 830 -340 1060 -340 {
 lab=VDD}
 N 960 -150 1030 -150 {
-lab=VOUT_S2}
+lab=#net3}
 N 960 -150 960 -40 {
-lab=VOUT_S2}
+lab=#net3}
 N 1070 -340 1070 -180 {
 lab=VDD}
 N 1060 -340 1070 -340 {
@@ -104,9 +104,9 @@ lab=VDD}
 N 1070 -340 1110 -340 {
 lab=VDD}
 N 980 60 1030 60 {
-lab=VOUT_S2}
+lab=#net3}
 N 980 -40 980 60 {
-lab=VOUT_S2}
+lab=#net3}
 N 830 160 1000 160 {
 lab=GND}
 N 1070 90 1070 250 {
@@ -115,17 +115,22 @@ N 830 250 1070 250 {
 lab=VSS}
 N 1070 60 1240 60 {
 lab=GND}
-N 1070 -10 1070 30 {}
-N 1070 -10 1240 -10 {}
-N 1240 -40 1240 -10 {}
-N 1070 -120 1070 -60 {}
-N 1070 -60 1240 -60 {}
-N 1240 -60 1240 -40 {}
+N 1070 -10 1070 30 {
+lab=VOUT}
+N 1070 -10 1240 -10 {
+lab=VOUT}
+N 1240 -40 1240 -10 {
+lab=VOUT}
+N 1070 -120 1070 -60 {
+lab=VOUT}
+N 1070 -60 1240 -60 {
+lab=VOUT}
+N 1240 -60 1240 -40 {
+lab=VOUT}
 C {ipin.sym} -110 -40 0 0 {name=VIN_P lab=VIN_P}
 C {ipin.sym} 560 -40 2 0 {name=VIN_N lab=VIN_N }
 C {ipin.sym} 210 -340 1 0 {name=VDD lab=VDD}
 C {ipin.sym} 220 250 3 0 {name=VSS lab=VSS}
-C {opin.sym} 1000 -40 0 0 {name=VOUT_S2 lab=VOUT_S2}
 C {gnd.sym} 120 20 0 0 {name=l1 lab=GND}
 C {gnd.sym} 300 20 0 0 {name=l2 lab=GND}
 C {sky130_fd_pr/pfet_01v8.sym} 20 -230 2 0 {name=M3
@@ -269,3 +274,4 @@ spiceprefix=X
 }
 C {gnd.sym} 1240 60 0 0 {name=l5 lab=GND}
 C {opin.sym} 1240 -40 0 0 {name=VOUT lab=VOUT}
+C {lab_pin.sym} 1000 -40 2 0 {name=VOUT_S1 sig_type=std_logic lab=VOUT_S2}
